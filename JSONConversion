@@ -1,0 +1,72 @@
+import pandas as pd
+from datetime import datetime, timedelta
+import os
+import json
+
+
+column_names = ["Key","EventEnqueuedUtcTime","EventProcessedUtcTime","IoTHub","PartitionId", "person_count"]
+df = pd.DataFrame(columns = column_names)
+
+a_dir = "C:/Users/rbc20092/OneDrive - GSK/Desktop/Projects/VAH POD/LIDAR/CRP - Alpha/Skeleton Dump/csv_dumps/20210810"
+for filename in os.listdir(a_dir):
+    filepath = os.path.join(a_dir, filename)
+
+    # reading JSON:
+    #with open(r'C:\Users\rbc20092\Downloads\Test.json', errors='ignore') as f:
+    with open(filepath, errors='ignore') as f: 
+        for line in f:
+            data_dict = json.loads(line)
+            df_length = len(df)
+            df.loc[df_length] = data_dict
+            df['Key'].loc[df_length] = line
+
+
+'''a_directory = "C:/Users/rbc20092/OneDrive - GSK/Desktop/Projects/VAH POD/LIDAR/CRP - Alpha/Skeleton Dump/csv_dumps/20210810"
+#filename="20210810/skeleton_dump_20210810_103024.csv"
+for filename in os.listdir(a_directory):
+    filepath = os.path.join(a_directory, filename)
+    df=pd.read_csv(filepath,sep ='\t')
+    #df=pd.read_csv("C:/Users/rbc20092/OneDrive - GSK/Desktop/Projects/VAH POD/LIDAR/CRP - Alpha/Skeleton Dump/skeleton_dump_20210811_104843.csv",sep ='\t')
+    #filedatetime=datetime(2021, 8, 10,10,30,24)
+
+    df["Slno"] = ""
+    df["DateTime"]=""'''
+df["Date"]=""
+df["Time"]=""
+df["Millisecond"]="" 
+    '''df["PeopleCount"]="" 
+    #df["Adjusted_DateTime"]=filedatetime
+    first_column = df.columns[0]'''
+
+for index, row in df.iterrows():
+        txt=row['EventEnqueuedUtcTime']
+        x1 = txt.find("T")
+        #slno=txt[0:x1]
+        #df.loc[index, 'Slno'] = slno
+        #txt2=txt[x1+1:]
+        #x2=txt2.find(",")
+        #datetime=txt2[0:x2]
+        #df.loc[index, 'DateTime'] = datetime
+        #x3=txt2.find(" ")
+        date=txt[0:x1]
+        df.loc[index, 'Date'] = date
+        #x4=txt2.find(".")
+        #time=txt2[x3+1:x4]
+        #df.loc[index, 'Time'] = time
+        #x5=txt2.find(",")
+        #millisecond=txt2[x4+1:x5]
+        #df.loc[index, 'Millisecond'] = millisecond
+        #peoplecount=txt2[-2:]
+        #peoplecount=peoplecount.replace(",","")
+        #df.loc[index, 'PeopleCount'] = peoplecount
+        '''if index!=0:
+            a=df.loc[index-1, 'Time']
+            b=df.loc[index, 'Time']
+            if a = b:
+                df.loc[index, 'Adjusted_DateTime'] = filedatetime
+                else :
+                    filedatetime= filedatetime + timedelta(seconds=1)
+                    df.loc[index, 'Adjusted_DateTime'] = filedatetime'''
+
+
+df.to_excel("C:/Users/rbc20092/OneDrive - GSK/Desktop/Projects/VAH POD/LIDAR/CRP - Alpha/Skeleton Dump/csv_dumps/JsonExport.xlsx" )
