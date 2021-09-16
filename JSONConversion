@@ -3,16 +3,17 @@ from datetime import datetime, timedelta
 import os
 import json
 
-
-column_names = ["Key","EventEnqueuedUtcTime","EventProcessedUtcTime","IoTHub","PartitionId", "person_count"]
+#provide name of columns to be created in data frame
+column_names = ["Key","x1","x2","x3"]
 df = pd.DataFrame(columns = column_names)
 
-a_dir = "C:/Users/rbc20092/OneDrive - GSK/Desktop/Projects/VAH POD/LIDAR/CRP - Alpha/Skeleton Dump/csv_dumps/20210810"
+#provide dictorry pat
+a_dir = "directory path"
 for filename in os.listdir(a_dir):
     filepath = os.path.join(a_dir, filename)
 
     # reading JSON:
-    #with open(r'C:\Users\rbc20092\Downloads\Test.json', errors='ignore') as f:
+    #with open(r'C:\Users\Test.json', errors='ignore') as f:
     with open(filepath, errors='ignore') as f: 
         for line in f:
             data_dict = json.loads(line)
@@ -21,12 +22,12 @@ for filename in os.listdir(a_dir):
             df['Key'].loc[df_length] = line
 
 
-'''a_directory = "C:/Users/rbc20092/OneDrive - GSK/Desktop/Projects/VAH POD/LIDAR/CRP - Alpha/Skeleton Dump/csv_dumps/20210810"
-#filename="20210810/skeleton_dump_20210810_103024.csv"
+'''a_directory = "C:/Users/foldername"
+#filename="xxx.csv"
 for filename in os.listdir(a_directory):
     filepath = os.path.join(a_directory, filename)
     df=pd.read_csv(filepath,sep ='\t')
-    #df=pd.read_csv("C:/Users/rbc20092/OneDrive - GSK/Desktop/Projects/VAH POD/LIDAR/CRP - Alpha/Skeleton Dump/skeleton_dump_20210811_104843.csv",sep ='\t')
+    #df=pd.read_csv("C:/Users/xx.csv",sep ='\t')
     #filedatetime=datetime(2021, 8, 10,10,30,24)
 
     df["Slno"] = ""
@@ -69,4 +70,4 @@ for index, row in df.iterrows():
                     df.loc[index, 'Adjusted_DateTime'] = filedatetime'''
 
 
-df.to_excel("C:/Users/rbc20092/OneDrive - GSK/Desktop/Projects/VAH POD/LIDAR/CRP - Alpha/Skeleton Dump/csv_dumps/JsonExport.xlsx" )
+df.to_excel("C:/Users/xx.xlsx" )
